@@ -428,7 +428,9 @@ class TrueNAS:
             NfsShare
         """
         data = nfs_share.to_json()
+        self.logger.debug(f"Adding NFS Share: {data}")
         data = self.post("/sharing/nfs", data)
+        self.logger.debug(f"Post return: {data}")
         return NfsShare.new_from_json(data)
 
     def delete_nfs_share(self, id: str | int) -> str:
@@ -525,6 +527,13 @@ class TrueNAS:
                          filter_path_mode: str = "end_with",
                          filter_path_reversed: bool = True,
                          remove: bool = True) -> TrueNAS.NfsModify:
+        self.logger.debug(f"Updating NFS Share for {parent_dataset_id}")
+        self.logger.debug(f"Parent Real Path: {parent_real_path}")
+        self.logger.debug(f"Common Config: {common_config}")
+        self.logger.debug(f"Filter Path Pattern: {filter_path_pattern}")
+        self.logger.debug(f"Filter Path Mode: {filter_path_mode}")
+        self.logger.debug(f"Filter Path Reversed: {filter_path_reversed}")
+        self.logger.debug(f"NFS Auto Remove: {remove}")
         nfs_modify = self.compare_nfs_with_personal_dataset(parent_dataset_id=parent_dataset_id, parent_real_path=parent_real_path)
         nfs_modify.filter(pattern=filter_path_pattern, mode=filter_path_mode, reversed=filter_path_reversed)
         if remove and len(nfs_modify.remove) > 0:
@@ -540,10 +549,11 @@ class TrueNAS:
         self.logger.info("Adding NFS Shares")
         nfs_share = common_config
         if nfs_share is None or not isinstance(nfs_share, NfsShareAdd):
+            self.logger.debug("Does not have common config, using default")
             nfs_share = NfsShareAdd()
         for path in nfs_modify.add:
             try:
-                nfs_share = NfsShareAdd(path=path)
+                nfs_share.path = path
                 self.add_nfs_share(nfs_share)
                 self.logger.info(f"Added {path}")
             except Exception as e:

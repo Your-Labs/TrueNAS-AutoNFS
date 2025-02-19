@@ -25,6 +25,6 @@ The `autonfs` container uses the following environment variables to configure ho
 | `TRUENAS_FILTER_PATH_PATTERN`    | The pattern to use for filtering paths (string or regex)                     | `_`                     |
 | `TRUENAS_FILTER_PATH_REVERSED`   | Whether to reverse the path filter logic (True/False)                        | `True`                  |
 | `TRUENAS_LOG_LEVEL`              | The log level (can be `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`)       | `INFO`                  |
-| `TRUENAS_NFS_COMMON_NETWORK`     | The network range (e.g., `192.168.1.0/24`) for common NFS shares             |                         |
-| `TRUENAS_NFS_COMMON_HOSTS`       | Comma-separated list of allowed hosts for the NFS share                      |                         |
+| `TRUENAS_NFS_COMMON_NETWORKS`     | The network range (e.g., `192.168.1.0/24`) for common NFS shares, use `,`  for muliple             |                         |
+| `TRUENAS_NFS_COMMON_HOSTS`       | Comma-separated list of allowed hosts for the NFS share,, use `,`  for muliple                      |                         |
 | `TRUENAS_NFS_AUTO_REMOVE`        | Whether to automatically remove NFS shares (True/False) while the dataset not exist                       | `True`                  |

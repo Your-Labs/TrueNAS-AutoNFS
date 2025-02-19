@@ -9,7 +9,7 @@
     "filter_path_reversed": true,
     "check_period_sec": 600,
     "dry_run": false,
-    "log_level": "info",
-    "nfs_common_network": [],
+    "log_level": "INFO",
+    "nfs_common_networks": [],
     "nfs_common_hosts": []
 }

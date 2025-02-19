@@ -74,16 +74,13 @@ class Config:
     check_period_sec: int = 600
     dry_run: bool = False
     log_level: int = logging.INFO
-    nfs_common_network: list[str] = field(default_factory=list)
+    nfs_common_networks: list[str] = field(default_factory=list)
     nfs_common_hosts: list[str] = field(default_factory=list)
     nfs_auto_remove: bool = True
 
     @property
     def nfs_common(self) -> NfsShareAdd:
-        return NfsShareAdd(
-            networks=self.nfs_common_network,
-            hosts=self.nfs_common_hosts
-        )
+        return NfsShareAdd(networks=self.nfs_common_networks,hosts=self.nfs_common_hosts)
 
     def read_from_json_file(self, file_path: str) -> Config:
         with open(file_path, "r") as f:
@@ -125,7 +122,7 @@ class Config:
         self.filter_path_reversed = get_env_bool("TRUENAS_FILTER_PATH_REVERSED", True)
         self.check_period_sec = get_env_int("TRUENAS_CHECK_PERIOD_SEC", 600)
         self.dry_run = get_env_bool("TRUENAS_DRY_RUN", False)
-        self.nfs_common_network = get_env_list("TRUENAS_NFS_COMMON_NETWORK", [])
+        self.nfs_common_networks = get_env_list("TRUENAS_NFS_COMMON_NETWORKS", [])
         self.nfs_common_hosts = get_env_list("TRUENAS_NFS_COMMON_HOSTS", [])
         log_level = get_env("TRUENAS_LOG_LEVEL", "INFO").upper()
         self.log_level = getattr(logging, log_level, logging.INFO)
