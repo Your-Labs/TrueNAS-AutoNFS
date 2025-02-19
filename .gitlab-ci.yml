@@ -22,12 +22,11 @@ build_tag:
     - docker push $DOCKER_IMAGE_NAME:latest
     - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_TAG
   rules:
-    - if: $CI_COMMIT_TAG  # 仅在检测到 Tag 时运行
+    - if: $CI_COMMIT_TAG  
       changes:
-        - scripts/**
-        - scripts/**/*
-        - Dockerfile
-
+        - src/**
+        - app.py
+        - requirements.txt
 # build for nightly
 build_branch:
   stage: build
@@ -36,11 +35,11 @@ build_branch:
     - docker build -t $DOCKER_IMAGE_NAME:$VERSION .
     - docker push $DOCKER_IMAGE_NAME:$VERSION
   rules:
-    - if: $CI_COMMIT_BRANCH  # 仅在分支构建时运行
+    - if: $CI_COMMIT_BRANCH  
       changes:
-        - scripts/**
-        - scripts/**/*
-        - Dockerfile
+        - src/**
+        - app.py
+        - requirements.txt
 
 build_dev:
   stage: build
@@ -51,6 +50,6 @@ build_dev:
   rules:
     - if: $CI_COMMIT_BRANCH == "dev"  # 仅在 dev 分支构建时运行
       changes:
-        - scripts/**
-        - scripts/**/*
-        - Dockerfile
+        - src/**
+        - app.py
+        - requirements.txt
