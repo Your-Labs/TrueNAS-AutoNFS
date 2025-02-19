@@ -1,0 +1,13 @@
+{
+    "host": "",
+    "api_key": "",
+    "parent_dataset_id": "data//home",
+    "ssl_verify": true,
+    "parent_real_path": "/mnt",
+    "filter_path_pattern": "_",
+    "filter_path_mode": "end_with",
+    "filter_path_reversed": true,
+    "check_period_sec": 600,
+    "dry_run": false,
+    "log_level": 10
+}
