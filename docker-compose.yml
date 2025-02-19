@@ -1,0 +1,17 @@
+services:
+  autonfs:
+    build: .
+    container_name: autonfs
+    environment:
+      TRUENAS_HOST: ""
+      TRUENAS_API_KEY_FILE: ""
+      TRUENAS_API_KEY: ""
+      TRUENAS_PARENT_DATASET_ID: "data/home"
+      TRUENAS_PARENT_REAL_PATH: /mnt"
+      TRUENAS_SSL_VERIFY: True
+      TRUENAS_CHECK_PERIOD_SEC: 600
+      TRUENAS_DRY_RUN: False
+      TRUENAS_FILTER_PATH_MODE: "end_with"
+      TRUENAS_FILTER_PATH_PATTERN: "_"
+      TRUENAS_FILTER_PATH_REVERSED: True
+      TRUENAS_LOG_LEVEL: "INFO"

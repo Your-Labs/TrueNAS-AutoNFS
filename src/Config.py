@@ -48,6 +48,6 @@ class Config:
             filter_path_pattern=os.environ.get("TRUENAS_FILTER_PATH_PATTERN", "_"),
             filter_path_reversed=bool(os.environ.get("TRUENAS_FILTER_PATH_REVERSED", True)),
             check_period_sec=int(os.environ.get("TRUENAS_CHECK_PERIOD_SEC", 600)),
-            dry_run=bool(os.environ.get("DRY_RUN", False)),
+            dry_run=bool(os.environ.get("TRUENAS_DRY_RUN", False)),
             log_level=log_level
         )
