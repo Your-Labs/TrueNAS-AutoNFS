@@ -102,8 +102,6 @@ class Config:
         TRUENAS_HOST = get_env("TRUENAS_HOST", "")
         TRUENAS_API_KEY_FILE = get_env("TRUENAS_API_KEY_FILE")
         TRUENAS_PARENT_DATASET_ID = get_env("TRUENAS_PARENT_DATASET_ID", "")
-        TRUENAS_LOG_LEVEL = get_env("TRUENAS_LOG_LEVEL", "INFO")
-        log_level = getattr(logging, TRUENAS_LOG_LEVEL.upper(), logging.INFO)
 
         if TRUENAS_API_KEY_FILE and os.path.exists(TRUENAS_API_KEY_FILE):
             with open(TRUENAS_API_KEY_FILE, "r") as f:
@@ -129,7 +127,8 @@ class Config:
         self.dry_run = get_env_bool("TRUENAS_DRY_RUN", False)
         self.nfs_common_network = get_env_list("TRUENAS_NFS_COMMON_NETWORK", [])
         self.nfs_common_hosts = get_env_list("TRUENAS_NFS_COMMON_HOSTS", [])
-        self.log_level = log_level
+        log_level = get_env("TRUENAS_LOG_LEVEL", "INFO").upper()
+        self.log_level = getattr(logging, log_level, logging.INFO)
         self.nfs_auto_remove = get_env_bool("TRUENAS_NFS_AUTO_REMOVE", True)
         return self
 
