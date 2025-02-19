@@ -5,7 +5,7 @@ import ssl
 import http.client
 import urllib.parse
 import logging
-
+import re
 
 class ErrNotConnected(Exception):
     def __init__(self, msg: str = "Not connected to TrueNAS"):
@@ -18,7 +18,7 @@ def filter_str(string: str, pattern: str, mode: str = 'start_with', reversed: bo
     Args:
         string: The string to filter
         pattern: The pattern to filter
-        mode: The filter mode,can be 'start_with', 'end_with', 'contains', default is 'start_with'
+        mode: The filter mode,can be 'start_with', 'end_with', 'contains', 'regex', default is 'start_with'
         reversed: If True, return the opposite result, default is False
     Returns:
         bool
@@ -29,6 +29,8 @@ def filter_str(string: str, pattern: str, mode: str = 'start_with', reversed: bo
         match = string.endswith(pattern)
     elif mode == 'contains':
         match = pattern in string
+    elif mode == 'regex':
+        match = re.search(pattern, string) is not None
     else:
         match = True
     return match if not reversed else not match

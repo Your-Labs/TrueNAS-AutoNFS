@@ -10,4 +10,5 @@ WORKDIR /app
 USER daemon
 COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY . /app
-CMD ["python", "app.py"]
+ENTRYPOINT [ "python", "/app/app.py" ]
+CMD [ "--config", "/app/config.json" ]

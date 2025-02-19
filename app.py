@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 import logging
+import argparse
 from src.TrueNAS import TrueNAS
 from src.Config import Config
 from time import sleep
 
 
-def main():
-    config = Config.new_from_env()
+def main(config_file: str = None):
+    config = Config.new(config_file=config_file)
     logger = logging.getLogger("TrueNAS")
     logging.basicConfig(
         level=config.log_level,
@@ -28,9 +29,11 @@ def main():
                     truenas.update_nfs_share(
                         parent_dataset_id=config.parent_dataset_id,
                         parent_real_path=config.parent_real_path,
+                        common_config=config.nfs_common,
                         filter_path_pattern=config.filter_path_pattern,
                         filter_path_mode=config.filter_path_mode,
-                        filter_path_reversed=config.filter_path_reversed
+                        filter_path_reversed=config.filter_path_reversed,
+                        remove=config.nfs_auto_remove
                     )
                     logger.info(f"NFS share updated successfully for {config.parent_dataset_id}.")
             except Exception as e:
@@ -46,5 +49,15 @@ def main():
         logger.info("Exiting the script.")
 
 
+def arg_parser():
+    parser = argparse.ArgumentParser(description="TrueNAS NFS Share Updater")
+    parser.add_argument(
+        "-c", "--config-file",
+        help="Path to the configuration file in JSON format."
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    main()
+    args = arg_parser()
+    main(config_file=args.config_file)
