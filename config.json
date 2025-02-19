@@ -1,7 +1,7 @@
 {
     "host": "",
     "api_key": "",
-    "parent_dataset_id": "data//home",
+    "parent_dataset_id": "data/home",
     "ssl_verify": true,
     "parent_real_path": "/mnt",
     "filter_path_pattern": "_",
@@ -9,5 +9,7 @@
     "filter_path_reversed": true,
     "check_period_sec": 600,
     "dry_run": false,
-    "log_level": 10
+    "log_level": "info",
+    "nfs_common_network": [],
+    "nfs_common_hosts": []
 }
