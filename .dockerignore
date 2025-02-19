@@ -1,0 +1,6 @@
+venv
+test.ipynb
+__pycache__
+__pycache__/*
+
+.gitlab-cu.yml
